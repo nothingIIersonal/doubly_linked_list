@@ -40,19 +40,43 @@ typedef struct _doubly_linked_list
     
 } doubly_linked_list;
 
-const size_t _item_type_is_correct(const u8 *);
+const size_t _item_type_is_correct(const u8 *); 
 
 doubly_linked_list * create_doubly_linked_list();
 
+void clear_doubly_linked_list(doubly_linked_list *);
+
 void delete_doubly_linked_list(doubly_linked_list *);
 
-const void push_head(doubly_linked_list *, void *, u8 *);
+node * create_node(node *, node *, void *, u8 *);
 
-const void push_tail(doubly_linked_list *, void *, u8 *);
+node * find_node_by_id(doubly_linked_list *, size_t);
 
-void * pop_head(doubly_linked_list *);
+node * push_head(doubly_linked_list *, void *, u8 *);
 
-void * pop_tail(doubly_linked_list *);
+node * push_tail(doubly_linked_list *, void *, u8 *);
+
+node * insert_after(doubly_linked_list *, node *, void *, u8 *);
+
+node * insert_before(doubly_linked_list *, node *, void *, u8 *);
+
+node * insert_by_id_right_shift(doubly_linked_list *, size_t, void *, u8 *);
+
+node * insert_by_id_left_shift(doubly_linked_list *, size_t, void *, u8 *);
+
+node * replace_by_id(doubly_linked_list *, size_t, void *, u8 *);
+
+void * pop_head_data(doubly_linked_list *);
+
+void * pop_tail_data(doubly_linked_list *);
+
+void * pop_data_by_id(doubly_linked_list *, size_t);
+
+void * get_head_data(doubly_linked_list *);
+
+void * get_tail_data(doubly_linked_list *);
+
+void * get_data_by_id(doubly_linked_list *, size_t);
 
 const void print_doubly_linked_list(const doubly_linked_list *);
 
