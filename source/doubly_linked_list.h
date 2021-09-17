@@ -44,13 +44,15 @@ const size_t _item_type_is_correct(const u8 *);
 
 doubly_linked_list * create_doubly_linked_list();
 
-void clear_doubly_linked_list(doubly_linked_list *);
+const void clear_doubly_linked_list(doubly_linked_list *);
 
-void delete_doubly_linked_list(doubly_linked_list *);
+const void delete_doubly_linked_list(doubly_linked_list *);
 
 node * create_node(node *, node *, void *, u8 *);
 
 node * find_node_by_id(doubly_linked_list *, size_t);
+
+node * find_node_by_ptr(doubly_linked_list *, node *);
 
 node * push_head(doubly_linked_list *, void *, u8 *);
 
@@ -77,6 +79,14 @@ void * get_head_data(doubly_linked_list *);
 void * get_tail_data(doubly_linked_list *);
 
 void * get_data_by_id(doubly_linked_list *, size_t);
+
+const void _swap_elements(doubly_linked_list *, node *, node *);
+
+const void swap_elements(doubly_linked_list *, node *, node *);
+
+const void swap_elements_by_ptr(doubly_linked_list *, node *, node *);
+
+const void swap_elements_by_id(doubly_linked_list *, size_t, size_t);
 
 const void print_doubly_linked_list(const doubly_linked_list *);
 

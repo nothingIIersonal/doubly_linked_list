@@ -78,14 +78,45 @@ node * find_node_by_id(doubly_linked_list * p_list, size_t id)
 		return NULL;
 	}
 
-	node * p_search = p_list->p_head;
-
-	while (p_search && id--)
+	node * p_search;
+	
+	if (id > (p_list->size / 2))
 	{
-		p_search = p_search->p_next;
+		p_search = p_list->p_tail;
+		
+		while (p_search && ((id++) < (p_list->size - 1)))
+		{
+			p_search = p_search->p_previous;
+		}		
+	}
+	else
+	{
+		p_search = p_list->p_head;
+
+		while (p_search && id--)
+		{
+			p_search = p_search->p_next;
+		}
 	}
 
 	return p_search;
+}
+
+node * find_node_by_ptr(doubly_linked_list * p_list, node * p_node)
+{
+	node * p_search_node = p_list->p_head;
+	for (size_t i = 0; i < p_list->size; i++)
+	{
+		if ( p_node == p_search_node )
+			break;
+		p_search_node = p_search_node->p_next;
+	}
+
+	if ( p_node != p_search_node )
+	{
+		printf("Unable find node %p\n", p_node);
+		return NULL;
+	}	
 }
 
 node * push_head(doubly_linked_list * p_list, void * p_data, u8 * type)
@@ -148,19 +179,9 @@ node * insert_after(doubly_linked_list * p_list, node * p_node, void * p_data, u
 		return p_temp;
 	}
 
-	node * p_search_node = p_list->p_head;
-	for (size_t i = 0; i < p_list->size; i++)
-	{
-		if ( p_node == p_search_node )
-			break;
-		p_search_node = p_search_node->p_next;
-	}
+	node * p_search_node = find_node_by_ptr(p_list, p_node);
 
-	if ( p_node != p_search_node )
-	{
-		printf("Unable find node %p\n", p_node);
-		return NULL;
-	}
+	if (p_search_node == NULL) { return NULL; }
 
 	node * p_temp = create_node(p_search_node->p_next, p_search_node, p_data, type);
 
@@ -180,19 +201,9 @@ node * insert_before(doubly_linked_list * p_list, node * p_node, void * p_data, 
 		return p_temp;
 	}
 
-	node * p_search_node = p_list->p_head;
-	for (size_t i = 0; i < p_list->size; i++)
-	{
-		if ( p_node == p_search_node )
-			break;
-		p_search_node = p_search_node->p_next;
-	}
+	node * p_search_node = find_node_by_ptr(p_list, p_node);
 
-	if ( p_node != p_search_node )
-	{
-		printf("Unable find node %p\n", p_node);
-		return NULL;
-	}
+	if (p_search_node == NULL) { return NULL; }
 
 	node * p_temp = create_node(p_search_node, p_search_node->p_previous, p_data, type);
 
@@ -370,6 +381,38 @@ void * get_data_by_id(doubly_linked_list * p_list, size_t id)
 	if (p_temp == NULL) { return NULL; }
 
 	return p_temp->p_data;
+}
+
+void _swap_elements(doubly_linked_list * p_list, node * first_node, node * second_node)
+{
+	void * p_data_1 = first_node->p_data;
+	void * p_data_2 = second_node->p_data;
+
+	u8 * type_1 = first_node->_type;
+	u8 * type_2 = second_node->_type;
+
+	first_node->p_data = p_data_2;
+	first_node->_type = type_2;
+
+	second_node->p_data = p_data_1;
+	second_node->_type = type_1;
+}
+
+void swap_elements(doubly_linked_list * p_list, node * first_node, node * second_node)
+{
+	if ( !first_node || !second_node ) { return; }
+
+	_swap_elements(p_list, first_node, second_node);	
+}
+
+void swap_elements_by_ptr(doubly_linked_list * p_list, node * first_node, node * second_node)
+{
+	swap_elements(p_list, first_node, second_node);
+}
+
+void swap_elements_by_id(doubly_linked_list * p_list, size_t first_id, size_t second_id)
+{
+	swap_elements(p_list, find_node_by_id(p_list, first_id), find_node_by_id(p_list, second_id));
 }
 
 const void print_doubly_linked_list(const doubly_linked_list * p_list) 
