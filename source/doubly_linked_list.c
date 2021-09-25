@@ -175,12 +175,6 @@ node * push_tail(doubly_linked_list * p_list, void * p_data, u8 * type)
 
 node * insert_after(doubly_linked_list * p_list, node * p_node, void * p_data, u8 * type)
 {
-	if ( !_item_type_is_correct(type) )
-	{
-		printf("\nUnable to identify data type \"%s\"", type);
-		return NULL;
-	}
-	
 	if ( p_node == p_list->p_tail )
 	{
 		node * p_temp = push_tail(p_list, p_data, type);
@@ -203,12 +197,6 @@ node * insert_after(doubly_linked_list * p_list, node * p_node, void * p_data, u
 
 node * insert_before(doubly_linked_list * p_list, node * p_node, void * p_data, u8 * type)
 {
-	if ( !_item_type_is_correct(type) )
-	{
-		printf("\nUnable to identify data type \"%s\"", type);
-		return NULL;
-	}	
-	
 	if ( p_node == p_list->p_head )
 	{
 		node * p_temp = push_head(p_list, p_data, type);
@@ -231,12 +219,6 @@ node * insert_before(doubly_linked_list * p_list, node * p_node, void * p_data, 
 
 node * insert_by_id_right_shift(doubly_linked_list * p_list, size_t id, void * p_data, u8 * type)
 {
-	if ( !_item_type_is_correct(type) )
-	{
-		printf("\nUnable to identify data type \"%s\"", type);
-		return NULL;
-	}	
-	
 	if (id == 0) { return push_head(p_list, p_data, type); }
 	if (id == p_list->size - 1) { return insert_before(p_list, p_list->p_tail, p_data, type); }
 
@@ -256,12 +238,6 @@ node * insert_by_id_right_shift(doubly_linked_list * p_list, size_t id, void * p
 
 node * insert_by_id_left_shift(doubly_linked_list * p_list, size_t id, void * p_data, u8 * type)
 {
-	if ( !_item_type_is_correct(type) )
-	{
-		printf("\nUnable to identify data type \"%s\"", type);
-		return NULL;
-	}	
-	
 	if (id == 0) { return insert_after(p_list, p_list->p_head, p_data, type); }
 	if (id == p_list->size - 1) { return push_tail(p_list, p_data, type); }
 
@@ -281,12 +257,6 @@ node * insert_by_id_left_shift(doubly_linked_list * p_list, size_t id, void * p_
 
 node * replace_by_id(doubly_linked_list * p_list, size_t id, void * p_data, u8 * type)
 {
-	if ( !_item_type_is_correct(type) )
-	{
-		printf("\nUnable to identify data type \"%s\"", type);
-		return NULL;
-	}	
-	
 	node * p_temp = find_node_by_id(p_list, id);
 
 	if (p_temp == NULL) { return NULL; }
