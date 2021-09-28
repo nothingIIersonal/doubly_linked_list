@@ -53,6 +53,12 @@ void delete_doubly_linked_list(doubly_linked_list * p_list)
 
 node * create_node(node * p_next, node * p_previous, void * p_data, u8 * type)
 {
+	if ( !_item_type_is_correct(type) )
+	{
+		printf("\nUnable to identify data type \"%s\"", type);
+		return NULL;
+	}	
+	
 	node * p_node = (node *)calloc(1, sizeof( node ));
 
 	if (p_node == NULL)
